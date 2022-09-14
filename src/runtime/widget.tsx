@@ -40,7 +40,8 @@ export default class Widget extends React.PureComponent<
     if (
       this.props.useDataSources &&
       this.props.useDataSources.length === 1 &&
-      this.props.useDataSources[0].fields //&&
+      this.props.useDataSources[0].fields &&
+      this.props.config.validate === true
       //this.props.useDataSources[0].fields.length === 1
       // this.props.useDataSources[1].fields &&
       // this.props.useDataSources[2].fields &&
