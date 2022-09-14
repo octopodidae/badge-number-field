@@ -21,6 +21,7 @@ export default class Setting extends React.PureComponent<
 > {
     state = {
         colorsState: [],
+        myCounter: null,
     }
 
     supportedTypes = Immutable([AllDataSourceTypes.FeatureLayer])
@@ -74,8 +75,8 @@ export default class Setting extends React.PureComponent<
         // console.log('e.currentTarget.value: ', e.currentTarget.value)
         this.props.config.fieldsSelected[index].color = e.currentTarget.value
         console.log(
-            'this.props.config.fieldsSelected: ',
-            this.props.config.fieldsSelected
+            'this.props.config.fieldsSelected.length: ',
+            this.props.config.fieldsSelected.length
         )
         console.log(
             'this.state.colorsState before setState(): ',
@@ -85,12 +86,16 @@ export default class Setting extends React.PureComponent<
         this.setState((prevState) => ({
             colorsState: [...prevState.colorsState, e.currentTarget.value],
         }))
+        this.setState(() => ({
+            myCounter: this.state.myCounter + 1,
+        }))
+        console.log('myCounter: ', this.state.myCounter)
         console.log(
             'this.state.colorsState after setState(): ',
             this.state.colorsState
         )
     }
-
+    // myCounter = -1
     colorStyle = {
         color: 'white',
         width: 'auto',
@@ -287,7 +292,9 @@ export default class Setting extends React.PureComponent<
                     'this.state.colorsState.length',
                     this.state.colorsState.length
                 )}
-                {this.state.colorsState.length > 0 && (
+                {console.log('this.state.myCounter', this.state.myCounter)}
+                {this.state.myCounter ===
+                    this.props.config.fieldsSelected.length && (
                     <>
                         <SettingSection>
                             <SettingRow>
