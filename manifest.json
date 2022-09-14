@@ -1,0 +1,17 @@
+{
+  "name": "badge-number-field",
+  "label": "Badge Number Field",
+  "type": "widget",
+  "version": "1.9.0",
+  "exbVersion": "1.9.0",
+  "author": "Bertrand Laurancin (Esri France)",
+  "description": "This widget demonstrates how to set badge from a number field",
+  "copyright": "",
+  "license": "http://www.apache.org/licenses/LICENSE-2.0",
+  "properties": {},
+  "translatedLocales": ["en"],
+  "defaultSize": {
+    "width": 400,
+    "height": 400
+  }
+}
