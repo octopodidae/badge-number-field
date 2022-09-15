@@ -39,6 +39,7 @@ export default class Setting extends React.PureComponent<
             ...{
                 fields: allSelectedFields.map((f) => {
                     if (f.type !== 'STRING') {
+                        console.log("f.type !== 'STRING'")
                         return f.jimuName
                     }
                 }),
@@ -59,20 +60,25 @@ export default class Setting extends React.PureComponent<
             },
             []
         )
+        console.log('this.props.useDataSources[0] into onFieldChange: ', this.props.useDataSources[0]);     
+        console.log('this.props.useDataSources[0].fields into onFieldChange: ', this.props.useDataSources[0].fields);
     }
 
     onStrFieldChange = (allSelectedFields: IMFieldSchema[]) => {
         // console.log('allSelectedFields: ', allSelectedFields)
-        this.props.onSettingChange({
-            id: this.props.id,
-            useDataSources: [
-                {
-                    ...this.props.useDataSources[0],
-                    ...{ fields: allSelectedFields.map((f) => f.jimuName) },
-                },
-            ],
-        })
+        // this.props.onSettingChange({
+        //     id: this.props.id,
+        //     useDataSources: [
+        //         {
+        //             ...this.props.useDataSources[0],
+        //             ...{ fields: allSelectedFields.map((f) => f.jimuName) },
+        //         },
+        //     ],
+        // })
         this.props.config.stringField = allSelectedFields[0].jimuName
+        // allSelectedFields.shift()  
+        console.log('this.props.useDataSources[0] into onStrFieldChange: ', this.props.useDataSources[0]);     
+        console.log('this.props.useDataSources[0].fields into onStrFieldChange: ', this.props.useDataSources[0].fields);
     }
     
     onToggleUseDataEnabled = (useDataSourcesEnabled: boolean) => {
@@ -191,7 +197,7 @@ export default class Setting extends React.PureComponent<
                                 isMultiple={false}
                                 isDataSourceDropDownHidden
                                 useDropdown
-                                isSelectedFromRepeatedDataSourceContext={true}
+                                // isSelectedFromRepeatedDataSourceContext={true}
                                 // isMultiple={true}
                             />
                             <SettingRow
