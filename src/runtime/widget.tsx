@@ -83,7 +83,7 @@ export default class Widget extends React.PureComponent<
           this.props.config.fieldsSelected[1].jimuName,
           this.props.config.fieldsSelected[2].jimuName,
           this.props.config.fieldsSelected[3].jimuName,
-          'pays_csv_name'          
+          this.props.config.stringField         
         ],
       })
       .then(
@@ -180,7 +180,7 @@ export default class Widget extends React.PureComponent<
       <div>
         <Button onClick={(e)=>{this.setState({ displayBadges: !this.state.displayBadges }); console.log(this.state.displayBadges);}} size="sm" className='mb-2'>
         {iconBtn}    
-          Get Badges
+          Display Badges
         </Button> 
           
       </div>
@@ -215,7 +215,7 @@ export default class Widget extends React.PureComponent<
           return (
               <tr scope="row">
                 <td style={{ color: 'black' }}>
-                  {item.feature.attributes.pays_csv_name}
+                  {item.feature.attributes[this.props.config.stringField]}
                 </td>
                 <td>
                   <span

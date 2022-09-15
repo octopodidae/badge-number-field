@@ -1,6 +1,7 @@
 import {
     React,
     Immutable,
+    ImmutableObject,
     IMFieldSchema,
     DataSource,
     UseDataSource,
@@ -26,19 +27,23 @@ export default class Setting extends React.PureComponent<
 
     supportedTypes = Immutable([AllDataSourceTypes.FeatureLayer])
     numberFieldTypes = Immutable([JimuFieldType.Number])
+    stringFieldTypes = Immutable([JimuFieldType.String])
 
     onFieldSelected = (allSelectedFields: IMFieldSchema[], ds: DataSource) => {
-        // console.log('allSelectedFields', allSelectedFields)
+        console.log('allSelectedFields', allSelectedFields)
         this.props.config.fieldsSelected = allSelectedFields
-        console.log(
-            'this.props.config.fieldsSelected.length: ',
-            this.props.config.fieldsSelected.length
-        )
+        // console.log(
+        //     'this.props.config.fieldsSelected.length: ',
+        //     this.props.config.fieldsSelected.length
+        // )
         const useDsWithFields = {
             ...this.props.useDataSources[0],
             ...{ fields: allSelectedFields.map((f) => f.jimuName) },
         }
-        // console.log('fields', fields)
+        // console.log(
+        //     'this.props.config.fieldsSelected',
+        //     this.props.config.fieldsSelected
+        // )
 
         /**
          * After selecting a field, update use data source, output data source and config.
@@ -57,7 +62,75 @@ export default class Setting extends React.PureComponent<
         )
     }
 
+    // onStringFieldSelected = (
+    //     singleSelectedField: IMFieldSchema[]
+    //     // ds: DataSource
+    // ) => {
+    //     console.log('singleSelectedField[0]: ', singleSelectedField[0])
+    //     // if (singleSelectedField[0].type === 'STRING') {
+    //     //     console.log('singleSelectedField: ', singleSelectedField)
+    //     //     console.log(
+    //     //         'singleSelectedField[0].type: ',
+    //     //         singleSelectedField[0].type
+    //     //     )
+    //     // }
+    //     this.props.config.stringField = singleSelectedField[0].jimuName
+    //     console.log(
+    //         'this.props.config.stringField: ',
+    //         this.props.config.stringField
+    //     )
+    //     // return this.props.config.stringField
+    //     // console.log(
+    //     //     'singleSelectedField[0].jimuName: ',
+    //     //     singleSelectedField[0].jimuName
+    //     // )
+    //     // console.log('this.onStringFieldSelected', this)
+    //     // const useDsWithFields = {
+    //     //     ...this.props.useDataSources[0],
+    //     //     ...{ fields: this.props.config.stringField },
+    //     // }
+    //     /**
+    //      * After selecting a field, update use data source, output data source and config.
+    //      * Need to save used fields to use data source, it is allow framework to know these fields are used.
+    //      */
+    //     // this.props.onSettingChange(
+    //     //     {
+    //     //         id: this.props.id,
+    //     //         useDataSources: [useDsWithFields],
+    //     //         config: {
+    //     //             ...this.props.config,
+    //     //             stringField: this.props.config.stringField,
+    //     //         },
+    //     //     },
+    //     //     []
+    //     // )
+    //     // console.log(
+    //     //     'this.props.useDataSources[0].fields: ',
+    //     //     this.props.useDataSources[0].fields
+    //     // )
+    //     // console.log(
+    //     //     'this.props.config.stringField',
+    //     //     this.props.config.stringField
+    //     // )
+    // }
+
+    onStringFieldSelected = (evt) => {
+        console.log('evt: ', evt)
+        if (evt && evt.length === 1) {
+            // this.props.onSettingChange({
+            //     id: this.props.id,
+            // config:
+            this.props.config.stringField = evt[0].name
+            // })
+        }
+        console.log(
+            'this.props.config.stringField : ',
+            this.props.config.stringField
+        )
+    }
+
     onToggleUseDataEnabled = (useDataSourcesEnabled: boolean) => {
+        // console.log('useDataSourcesEnabled: ', useDataSourcesEnabled)
         this.props.onSettingChange({
             id: this.props.id,
             useDataSourcesEnabled,
@@ -65,6 +138,7 @@ export default class Setting extends React.PureComponent<
     }
 
     onDataSourceChange = (useDataSources: UseDataSource[]) => {
+        console.log('useDataSources: ', useDataSources)
         this.props.onSettingChange({
             id: this.props.id,
             useDataSources: useDataSources,
@@ -153,7 +227,26 @@ export default class Setting extends React.PureComponent<
                 {this.props.useDataSources &&
                     this.props.useDataSources.length > 0 && (
                         <SettingSection>
-                            <SettingRow label="Select fields"></SettingRow>
+                            <SettingRow
+                                label="Select a string field"
+                                className="mb-3"
+                            ></SettingRow>
+                            <FieldSelector
+                                useDataSources={this.props.useDataSources}
+                                onChange={this.onStringFieldSelected}
+                                // selectedFields={this.props.config.stringField}
+                                selectedFields={this.props.config.stringField}
+                                types={this.stringFieldTypes}
+                                isSearchInputHidden={true}
+                                isMultiple={false}
+                                isDataSourceDropDownHidden
+                                useDropdown
+                                // isMultiple={true}
+                            />
+                            <SettingRow
+                                label="Select number fields"
+                                className="mt-3"
+                            ></SettingRow>
                             <FieldSelector
                                 useDataSources={this.props.useDataSources}
                                 onChange={this.onFieldSelected}
@@ -167,7 +260,10 @@ export default class Setting extends React.PureComponent<
                             />
                         </SettingSection>
                     )}
-
+                {console.log(
+                    'this.props.config.stringField : ',
+                    this.props.config.stringField
+                )}
                 {this.props.config.fieldsSelected.length > 0 && (
                     <>
                         <SettingSection>
@@ -288,37 +384,43 @@ export default class Setting extends React.PureComponent<
                     'this.props.config.colors',
                     this.props.config.colors
                 )} */}
-                {console.log(
+                {/* {console.log(
                     'this.state.colorsState.length',
                     this.state.colorsState.length
-                )}
-                {console.log('this.state.myCounter', this.state.myCounter)}
-                {this.state.myCounter ===
-                    this.props.config.fieldsSelected.length && (
-                    <>
-                        <SettingSection>
-                            <SettingRow>
-                                <Button
-                                    onClick={() => {
-                                        console.log(
-                                            'this.props.config.validate: ',
-                                            this.props.config.validate
-                                        )
-                                        this.props.config.validate = true
-                                        console.log(
-                                            'this.props.config.validate: ',
-                                            this.props.config.validate
-                                        )
-                                        alert('Validate !')
-                                    }}
-                                    size="default"
-                                >
-                                    Validate
-                                </Button>
-                            </SettingRow>
-                        </SettingSection>
-                    </>
-                )}
+                )} */}
+                {/* {console.log('this.state.myCounter', this.state.myCounter)} */}
+                {/* {this.state.myCounter ===
+                    this.props.config.fieldsSelected.length && ( */}
+                <>
+                    <SettingSection>
+                        <SettingRow>
+                            <Button
+                                onClick={() => {
+                                    console.log(
+                                        'this.props.config.validate: ',
+                                        this.props.config.validate
+                                    )
+                                    this.props.config.validate = true
+                                    console.log(
+                                        'this.props.config.validate: ',
+                                        this.props.config.validate
+                                    )
+                                    alert('Validate !')
+                                }}
+                                size="default"
+                                disabled={
+                                    this.state.myCounter ===
+                                    this.props.config.fieldsSelected.length
+                                        ? false
+                                        : true
+                                }
+                            >
+                                Validate
+                            </Button>
+                        </SettingRow>
+                    </SettingSection>
+                </>
+                {/* )} */}
             </div>
         )
     }
