@@ -95,16 +95,7 @@ import {
         <PlusOutlined size='m'></PlusOutlined>
 
         return(
-            <>
-            <div>
-                <Button
-                    onClick={(e)=>{this.setState({ displayBadges: !this.state.displayBadges })}}
-                    size="sm"
-                    className='mb-2'>
-                    {iconBtn}    
-                Display Badges
-                </Button>           
-            </div>
+            <>            
             <div
                 className="widget-badge-number-field"
                 style={{
@@ -114,6 +105,15 @@ import {
                 overflow: 'auto'          
                 }}
             >
+                <div>
+                    <Button
+                        onClick={(e)=>{this.setState({ displayBadges: !this.state.displayBadges })}}
+                        size="sm"
+                        className='mb-2'>
+                        {iconBtn}    
+                    Display Badges
+                    </Button>           
+                </div>
                 <Table size="sm" style={{"display": displayBadges}}>
                     <thead>
                         <tr>
