@@ -31,6 +31,25 @@ export default class Setting extends React.PureComponent<
     numberFieldTypes = Immutable([JimuFieldType.Number])
     stringFieldTypes = Immutable([JimuFieldType.String])
 
+   
+      
+    onToggleUseDataEnabled = (useDataSourcesEnabled: boolean) => {
+        // console.log('useDataSourcesEnabled: ', useDataSourcesEnabled)
+        this.props.onSettingChange({
+            id: this.props.id,
+            useDataSourcesEnabled,
+        })
+    }
+
+    onDataSourceChange = (useDataSources: UseDataSource[]) => {
+        console.log('useDataSources: ', useDataSources)
+        this.props.onSettingChange({
+            id: this.props.id,
+            useDataSources: useDataSources,
+        })
+        // console.log("this.props.config.colors", this.props.config.colors);
+    }
+
     onFieldChange = (allSelectedFields: IMFieldSchema[], ds: DataSource) => {
         console.log('allSelectedFields', allSelectedFields)
 
@@ -80,22 +99,6 @@ export default class Setting extends React.PureComponent<
         console.log('this.props.useDataSources[0] into onStrFieldChange: ', this.props.useDataSources[0]);     
         console.log('this.props.useDataSources[0].fields into onStrFieldChange: ', this.props.useDataSources[0].fields);
     }
-    
-    onToggleUseDataEnabled = (useDataSourcesEnabled: boolean) => {
-        // console.log('useDataSourcesEnabled: ', useDataSourcesEnabled)
-        this.props.onSettingChange({
-            id: this.props.id,
-            useDataSourcesEnabled,
-        })
-    }
-
-    onDataSourceChange = (useDataSources: UseDataSource[]) => {
-        console.log('useDataSources: ', useDataSources)
-        this.props.onSettingChange({
-            id: this.props.id,
-            useDataSources: useDataSources,
-        })
-    }
 
     onColorChange = (e, index) => {
         // console.log('e.currentTarget.value: ', e.currentTarget.value)
@@ -121,41 +124,41 @@ export default class Setting extends React.PureComponent<
             this.state.colorsState
         )
     }
-    // myCounter = -1
+    myCounter = -1
     colorStyle = {
-        color: 'white',
-        width: 'auto',
-        height: 'auto',
-        padding: '0.1rem',
+        // color: 'white',
+        width: '100%',
+        height: '20px',
+        // padding: '0.1rem',
         borderRadius: 5,
     }
-    redStyle = {
-        background: 'red',
-    }
-    greenStyle = {
-        background: 'green',
-    }
-    blueStyle = {
-        background: 'blue',
-    }
-    goldStyle = {
-        background: 'gold',
-    }
-    silverStyle = {
-        background: 'silver',
-    }
-    blackStyle = {
-        background: 'black',
-    }
-    purpleStyle = {
-        background: 'purple',
-    }
-    pinkStyle = {
-        background: 'pink',
-    }
-    siennaStyle = {
-        background: 'sienna',
-    }
+    // redStyle = {
+    //     background: 'red',
+    // }
+    // greenStyle = {
+    //     background: 'green',
+    // }
+    // blueStyle = {
+    //     background: 'blue',
+    // }
+    // goldStyle = {
+    //     background: 'gold',
+    // }
+    // silverStyle = {
+    //     background: 'silver',
+    // }
+    // blackStyle = {
+    //     background: 'black',
+    // }
+    // purpleStyle = {
+    //     background: 'purple',
+    // }
+    // pinkStyle = {
+    //     background: 'pink',
+    // }
+    // siennaStyle = {
+    //     background: 'sienna',
+    // }
     render() {
         
         return (
@@ -237,7 +240,21 @@ export default class Setting extends React.PureComponent<
                                                 }
                                                 placeholder="Select a color..."
                                             >
-                                                <Option value="Red">
+                                                {this.props.config.colors.map((color)=>{
+                                                    return(
+                                                    <Option value={color} >
+                                                        {/* {color} */}
+                                                        <div
+                                                            style={{
+                                                                ...this.colorStyle,
+                                                                background: color                                                     
+                                                            }}                                                            
+                                                        >                                                           
+                                                        </div>
+                                                    </Option>)
+                                                })}
+                                                
+                                                {/* <Option value="Red">
                                                     <div
                                                         style={{
                                                             ...this.colorStyle,
@@ -326,7 +343,7 @@ export default class Setting extends React.PureComponent<
                                                     >
                                                         Black
                                                     </div>
-                                                </Option>
+                                                </Option> */}
                                             </Select>
                                         </SettingRow>
                                     )

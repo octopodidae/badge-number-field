@@ -5,6 +5,7 @@ export interface Config {
     stringField: string
     fieldsSelected: []
     validate: boolean
+    colors: []
 }
 
 export type IMConfig = ImmutableObject<Config>
