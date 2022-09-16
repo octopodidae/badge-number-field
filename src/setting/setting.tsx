@@ -1,7 +1,6 @@
 import {
     React,
     Immutable,
-    ImmutableObject,
     IMFieldSchema,
     DataSource,
     UseDataSource,
@@ -15,7 +14,6 @@ import {
 } from 'jimu-ui/advanced/data-source-selector'
 import { SettingSection, SettingRow } from 'jimu-ui/advanced/setting-components'
 import { Select, Option, Button } from 'jimu-ui'
-import { string } from 'prop-types'
 
 export default class Setting extends React.PureComponent<
     AllWidgetSettingProps<{}>,
@@ -42,7 +40,7 @@ export default class Setting extends React.PureComponent<
     }
 
     onDataSourceChange = (useDataSources: UseDataSource[]) => {
-        console.log('useDataSources: ', useDataSources)
+        // console.log('useDataSources: ', useDataSources)
         this.props.onSettingChange({
             id: this.props.id,
             useDataSources: useDataSources,
@@ -51,14 +49,14 @@ export default class Setting extends React.PureComponent<
     }
 
     onFieldChange = (allSelectedFields: IMFieldSchema[], ds: DataSource) => {
-        console.log('allSelectedFields', allSelectedFields)
+        // console.log('allSelectedFields', allSelectedFields)
 
         const useDsWithFields = {
             ...this.props.useDataSources[0],
             ...{
                 fields: allSelectedFields.map((f) => {
                     if (f.type !== 'STRING') {
-                        console.log("f.type !== 'STRING'")
+                        // console.log("f.type !== 'STRING'")
                         return f.jimuName
                     }
                 }),
@@ -66,7 +64,7 @@ export default class Setting extends React.PureComponent<
         }
 
         this.props.config.fieldsSelected = allSelectedFields
-        console.log('allSelectedFields', allSelectedFields)
+        // console.log('allSelectedFields', allSelectedFields)
 
         this.props.onSettingChange(
             {
@@ -79,27 +77,27 @@ export default class Setting extends React.PureComponent<
             },
             []
         )
-        console.log('this.props.useDataSources[0] into onFieldChange: ', this.props.useDataSources[0]);     
-        console.log('this.props.useDataSources[0].fields into onFieldChange: ', this.props.useDataSources[0].fields);
+        // console.log('this.props.useDataSources[0] into onFieldChange: ', this.props.useDataSources[0]);     
+        // console.log('this.props.useDataSources[0].fields into onFieldChange: ', this.props.useDataSources[0].fields);
     }
 
     onStrFieldChange = (allSelectedFields: IMFieldSchema[]) => {        
         this.props.config.stringField = allSelectedFields[0].jimuName        
-        console.log('this.props.useDataSources[0] into onStrFieldChange: ', this.props.useDataSources[0]);     
-        console.log('this.props.useDataSources[0].fields into onStrFieldChange: ', this.props.useDataSources[0].fields);
+        // console.log('this.props.useDataSources[0] into onStrFieldChange: ', this.props.useDataSources[0]);     
+        // console.log('this.props.useDataSources[0].fields into onStrFieldChange: ', this.props.useDataSources[0].fields);
     }
 
     onColorChange = (e, index) => {
         // console.log('e.currentTarget.value: ', e.currentTarget.value)
         this.props.config.fieldsSelected[index].color = e.currentTarget.value
-        console.log(
-            'this.props.config.fieldsSelected.length: ',
-            this.props.config.fieldsSelected.length
-        )
-        console.log(
-            'this.state.colorsState before setState(): ',
-            this.state.colorsState
-        )
+        // console.log(
+        //     'this.props.config.fieldsSelected.length: ',
+        //     this.props.config.fieldsSelected.length
+        // )
+        // console.log(
+        //     'this.state.colorsState before setState(): ',
+        //     this.state.colorsState
+        // )
         // console.log('e.currentTarget.value: ', e.currentTarget.value)
         this.setState((prevState) => ({
             colorsState: [...prevState.colorsState, e.currentTarget.value],
@@ -107,11 +105,11 @@ export default class Setting extends React.PureComponent<
         this.setState(() => ({
             myCounter: this.state.myCounter + 1,
         }))
-        console.log('myCounter: ', this.state.myCounter)
-        console.log(
-            'this.state.colorsState after setState(): ',
-            this.state.colorsState
-        )
+        // console.log('myCounter: ', this.state.myCounter)
+        // console.log(
+        //     'this.state.colorsState after setState(): ',
+        //     this.state.colorsState
+        // )
     }
     myCounter = -1
     colorStyle = {
@@ -214,97 +212,7 @@ export default class Setting extends React.PureComponent<
                                                         </div>
                                                     </Option>)
                                                 })}
-                                                
-                                                {/* <Option value="Red">
-                                                    <div
-                                                        style={{
-                                                            ...this.colorStyle,
-                                                            ...this.redStyle,
-                                                        }}
-                                                    >
-                                                        Red
-                                                    </div>
-                                                </Option>
-                                                <Option value="Green">
-                                                    <div
-                                                        style={{
-                                                            ...this.colorStyle,
-                                                            ...this.greenStyle,
-                                                        }}
-                                                    >
-                                                        Green
-                                                    </div>
-                                                </Option>
-                                                <Option value="Blue">
-                                                    <div
-                                                        style={{
-                                                            ...this.colorStyle,
-                                                            ...this.blueStyle,
-                                                        }}
-                                                    >
-                                                        Blue
-                                                    </div>
-                                                </Option>
-                                                <Option value="Gold">
-                                                    <div
-                                                        style={{
-                                                            ...this.colorStyle,
-                                                            ...this.goldStyle,
-                                                        }}
-                                                    >
-                                                        Gold
-                                                    </div>
-                                                </Option>
-                                                <Option value="Pink">
-                                                    <div
-                                                        style={{
-                                                            ...this.colorStyle,
-                                                            ...this.pinkStyle,
-                                                        }}
-                                                    >
-                                                        Pink
-                                                    </div>
-                                                </Option>
-                                                <Option value="Purple">
-                                                    <div
-                                                        style={{
-                                                            ...this.colorStyle,
-                                                            ...this.purpleStyle,
-                                                        }}
-                                                    >
-                                                        Purple
-                                                    </div>
-                                                </Option>
-                                                <Option value="Sienna">
-                                                    <div
-                                                        style={{
-                                                            ...this.colorStyle,
-                                                            ...this.siennaStyle,
-                                                        }}
-                                                    >
-                                                        Sienna
-                                                    </div>
-                                                </Option>
-                                                <Option value="Silver">
-                                                    <div
-                                                        style={{
-                                                            ...this.colorStyle,
-                                                            ...this.silverStyle,
-                                                        }}
-                                                    >
-                                                        Silver
-                                                    </div>
-                                                </Option>
-                                                <Option value="Black">
-                                                    <div
-                                                        style={{
-                                                            ...this.colorStyle,
-                                                            ...this.blackStyle,
-                                                        }}
-                                                    >
-                                                        Black
-                                                    </div>
-                                                </Option> */}
+
                                             </Select>
                                         </SettingRow>
                                     )
@@ -326,15 +234,15 @@ export default class Setting extends React.PureComponent<
                             <Button
                                 className="text-center"
                                 onClick={() => {
-                                    console.log(
-                                        'this.props.config.validate: ',
-                                        this.props.config.validate
-                                    )
-                                    this.props.config.validate = true
-                                    console.log(
-                                        'this.props.config.validate: ',
-                                        this.props.config.validate
-                                    )
+                                    // console.log(
+                                    //     'this.props.config.validate: ',
+                                    //     this.props.config.validate
+                                    // )
+                                    // this.props.config.validate = true
+                                    // console.log(
+                                    //     'this.props.config.validate: ',
+                                    //     this.props.config.validate
+                                    // )
                                     alert('Validate !')
                                 }}
                                 size="default"
@@ -351,12 +259,12 @@ export default class Setting extends React.PureComponent<
                     </SettingSection>
                 </>
                 )}
-                {console.log(
+                {/* {console.log(
                     'this.props.config.fieldsSelected: ',
                     this.props.config.fieldsSelected
                 )
                 }
-                {console.log('this.props.config.stringField: ', this.props.config.stringField)}
+                {console.log('this.props.config.stringField: ', this.props.config.stringField)} */}
             </div>
         )
     }
