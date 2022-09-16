@@ -83,19 +83,8 @@ export default class Setting extends React.PureComponent<
         console.log('this.props.useDataSources[0].fields into onFieldChange: ', this.props.useDataSources[0].fields);
     }
 
-    onStrFieldChange = (allSelectedFields: IMFieldSchema[]) => {
-        // console.log('allSelectedFields: ', allSelectedFields)
-        // this.props.onSettingChange({
-        //     id: this.props.id,
-        //     useDataSources: [
-        //         {
-        //             ...this.props.useDataSources[0],
-        //             ...{ fields: allSelectedFields.map((f) => f.jimuName) },
-        //         },
-        //     ],
-        // })
-        this.props.config.stringField = allSelectedFields[0].jimuName
-        // allSelectedFields.shift()  
+    onStrFieldChange = (allSelectedFields: IMFieldSchema[]) => {        
+        this.props.config.stringField = allSelectedFields[0].jimuName        
         console.log('this.props.useDataSources[0] into onStrFieldChange: ', this.props.useDataSources[0]);     
         console.log('this.props.useDataSources[0].fields into onStrFieldChange: ', this.props.useDataSources[0].fields);
     }
@@ -126,39 +115,11 @@ export default class Setting extends React.PureComponent<
     }
     myCounter = -1
     colorStyle = {
-        // color: 'white',
         width: '100%',
         height: '20px',
-        // padding: '0.1rem',
         borderRadius: 5,
     }
-    // redStyle = {
-    //     background: 'red',
-    // }
-    // greenStyle = {
-    //     background: 'green',
-    // }
-    // blueStyle = {
-    //     background: 'blue',
-    // }
-    // goldStyle = {
-    //     background: 'gold',
-    // }
-    // silverStyle = {
-    //     background: 'silver',
-    // }
-    // blackStyle = {
-    //     background: 'black',
-    // }
-    // purpleStyle = {
-    //     background: 'purple',
-    // }
-    // pinkStyle = {
-    //     background: 'pink',
-    // }
-    // siennaStyle = {
-    //     background: 'sienna',
-    // }
+
     render() {
         
         return (
